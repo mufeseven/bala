@@ -1,0 +1,57 @@
+[App]
+Version = "v0.0.1"
+Mode = "debug"       # debug or release
+Language = "CN"
+
+[Http]
+Host = "0.0.0.0"
+Port = 9000
+
+[Https]
+Host = "0.0.0.0"
+Port = 9001
+CertFile = "./config/TLS.crt"
+KeyFile = "./config/TLS.key"
+
+[Data]
+Path = "./data"
+
+[Log]
+Level = "info"       # panic, fatal, error, warn, info, debug, trace
+Path = "./log"
+
+[pprof]
+Enable = true
+Host = "0.0.0.0"
+Port = 3000
+
+[Mysql]
+Debug = true
+DDL = false          # 自动建表
+Tables = 2          # 每个单表分多少张表
+[Mysql.Common]
+Dsn = "root:123456@tcp(127.0.0.1:3306)/common?charset=utf8mb4&parseTime=True&loc=Local&interpolateParams=True"
+MaxOpen = 50
+MaxIdleCount = 30
+MaxIdleTime = 60     # minute
+MaxLifetime = 180    # minute
+[[Mysql.Shards]]
+Dsn = "root:123456@tcp(127.0.0.1:3306)/game1?charset=utf8mb4&parseTime=True&loc=Local&interpolateParams=True"
+MaxOpen = 50
+MaxIdleCount = 30
+MaxIdleTime = 60     # minute
+MaxLifetime = 180    # minute
+
+[Redis]
+SessionDB = 0        # 对应redis的16个库
+LogicDB = 1
+[[Redis.Shards]]
+Url = "redis://123456@127.0.0.1:6379"
+ConnectTimeout = 10  # second
+KeepAlive = 60       # minute
+ReadTimeout = 100    # millisecond
+WriteTimeout = 100   # millisecond
+MaxActive = 30
+MaxIdle = 10
+IdleTimeout = 60     # minute
+MaxLifetime = 180    # minute
